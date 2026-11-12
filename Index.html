@@ -5,319 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mein Vokabeltrainer</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
-    .container {
-      width: 100%;
-      max-width: 500px;
-      background-color: #1e293b;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    }
-    h1 {
-      text-align: center;
-      margin-top: 0;
-      font-size: 24px;
-      color: #38bdf8;
-    }
-    h2 {
-      font-size: 18px;
-      margin-top: 24px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 6px;
-    }
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #475569;
-      background-color: #0f172a;
-      color: #ffffff;
-      font-size: 16px;
-    }
-    input:focus {
-      outline: none;
-      border-color: #38bdf8;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    button:active {
-      opacity: 0.8;
-    }
-    .btn-add {
-      background-color: #22c55e;
-      color: #052e16;
-    }
-    .btn-start {
-      background-color: #38bdf8;
-      color: #082f49;
-      margin-top: 10px;
-    }
-    .btn-check {
-      background-color: #38bdf8;
-      color: #082f49;
-      margin-top: 10px;
-    }
-    .btn-secondary {
-      background-color: #475569;
-      color: #f8fafc;
-      margin-top: 10px;
-    }
-    .btn-delete {
-      background-color: #ef4444;
-      color: white;
-      width: auto;
-      padding: 6px 10px;
-      font-size: 12px;
-    }
-    .vocab-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      max-height: 220px;
-      overflow-y: auto;
-    }
-    .vocab-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #0f172a;
-      padding: 10px 12px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-    .quiz-box {
-      display: none;
-      text-align: center;
-      margin-top: 15px;
-    }
-    .question-word {
-      font-size: 28px;
-      font-weight: bold;
-      margin: 20px 0;
-      color: #facc15;
-    }
-    .feedback {
-      margin-top: 15px;
-      font-size: 16px;
-      font-weight: bold;
-      min-height: 24px;
-    }
-    .correct {
-      color: #4ade80;
-    }
-    .wrong {
-      color: #f87171;
-    }
-    .score-board {
-      font-size: 14px;
-      color: #94a3b8;
-      margin-bottom: 10px;
-    }
+    * { box-sizing: border-box; font-family: system-ui, sans-serif; }
+    body { background: #0f172a; color: #f8fafc; margin: 0; padding: 16px; display: flex; justify-content: center; }
+    .box { width: 100%; max-width: 480px; background: #1e293b; padding: 20px; border-radius: 16px; }
+    h1 { text-align: center; margin: 0 0 16px; font-size: 22px; color: #38bdf8; }
+    h2 { font-size: 16px; margin: 20px 0 8px; border-bottom: 1px solid #334155; padding-bottom: 4px; }
+    input, textarea { width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 15px; }
+    textarea { min-height: 95px; resize: vertical; }
+    button { width: 100%; padding: 11px; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 4px; }
+    .add { background: #22c55e; color: #052e16; }
+    .imp { background: #a855f7; color: #fff; }
+    .start { background: #38bdf8; color: #082f49; margin-top: 10px; }
+    .sec { background: #475569; color: #fff; margin-top: 8px; }
+    .clr { background: transparent; border: 1px solid #ef4444; color: #f87171; font-size: 13px; padding: 7px; margin-top: 8px; }
+    .del { background: #ef4444; color: #fff; width: auto; padding: 4px 8px; font-size: 12px; margin: 0; }
+    ul { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
+    li { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 14px; }
+    #quiz { display: none; text-align: center; }
+    .word { font-size: 26px; font-weight: bold; margin: 18px 0; color: #facc15; }
+    .fb { margin-top: 12px; font-weight: bold; min-height: 22px; }
+    .ok { color: #4ade80; }
+    .no { color: #f87171; }
   </style>
 </head>
 <body>
-
-<div class="container">
+<div class="box">
   <h1>📚 Mein Vokabeltrainer</h1>
+  <div id="setup">
+    <h2>Einzelne Vokabel</h2>
+    <input id="f" placeholder="Fremdwort (z. B. apple)">
+    <input id="b" placeholder="Übersetzung (z. B. Apfel)">
+    <button class="add" onclick="add()">+ Speichern</button>
 
-  <!-- Bereich 1: Vokabeln eingeben und verwalten -->
-  <div id="setup-section">
-    <h2>Neue Vokabel hinzufügen</h2>
-    <div class="input-group">
-      <input type="text" id="word-front" placeholder="Fremdwort (z. B. apple)">
-      <input type="text" id="word-back" placeholder="Übersetzung (z. B. Apfel)">
-      <button class="btn-add" onclick="addVocab()">+ Vokabel speichern</button>
-    </div>
+    <h2>Liste importieren (Wort - Übersetzung)</h2>
+    <textarea id="bulk" placeholder="apple - Apfel&#10;dog = Hund&#10;house ; Haus"></textarea>
+    <button class="imp" onclick="imp()">📥 Liste importieren</button>
 
-    <h2>Gespeicherte Vokabeln (<span id="vocab-count">0</span>)</h2>
-    <ul class="vocab-list" id="vocab-list"></ul>
-
-    <button class="btn-start" onclick="startQuiz()">Abfrage starten ▶</button>
+    <h2>Vokabeln (<span id="cnt">0</span>)</h2>
+    <ul id="list"></ul>
+    <button class="start" onclick="start()">Abfrage starten ▶</button>
+    <button class="clr" onclick="clr()">Alle löschen</button>
   </div>
 
-  <!-- Bereich 2: Abfrage-Modus -->
-  <div id="quiz-section" class="quiz-box">
-    <div class="score-board">Richtig: <span id="score">0</span> | Verbleibend: <span id="remaining">0</span></div>
-    <div>Was heißt dieses Wort?</div>
-    <div class="question-word" id="question-word">---</div>
-
-    <input type="text" id="answer-input" placeholder="Deine Antwort eingeben..." autocomplete="off">
-    <button class="btn-check" id="check-btn" onclick="checkAnswer()">Antwort prüfen</button>
-    <button class="btn-start" id="next-btn" style="display:none;" onclick="nextQuestion()">Nächste Vokabel ➡</button>
-
-    <div class="feedback" id="feedback"></div>
-
-    <button class="btn-secondary" onclick="stopQuiz()">Zurück zur Übersicht</button>
+  <div id="quiz">
+    <div style="font-size:13px;color:#94a3b8;">Richtig: <span id="sc">0</span> | Offen: <span id="rem">0</span></div>
+    <div class="word" id="qw">---</div>
+    <input id="ans" placeholder="Übersetzung eingeben..." autocomplete="off">
+    <button class="start" id="chk" onclick="chk()">Prüfen</button>
+    <button class="start" id="nxt" style="display:none;" onclick="nxt()">Weiter ➡</button>
+    <div class="fb" id="fb"></div>
+    <button class="sec" onclick="stop()">Zurück</button>
   </div>
 </div>
 
 <script>
-  let vocabList = JSON.parse(localStorage.getItem('meineVokabeln')) || [];
-  let quizQueue = [];
-  let currentWord = null;
-  let score = 0;
-
-  function saveToStorage() {
-    localStorage.setItem('meineVokabeln', JSON.stringify(vocabList));
+  let v = JSON.parse(localStorage.getItem('vok')) || [], q = [], cur = null, sc = 0;
+  const save = () => { localStorage.setItem('vok', JSON.stringify(v)); render(); };
+  function render() {
+    document.getElementById('cnt').textContent = v.length;
+    document.getElementById('list').innerHTML = v.map((x, i) => `<li><span><b>${x.f}</b> – ${x.b}</span><button class="del" onclick="del(${i})">X</button></li>`).join('');
   }
-
-  function renderList() {
-    const listEl = document.getElementById('vocab-list');
-    const countEl = document.getElementById('vocab-count');
-    listEl.innerHTML = '';
-    countEl.textContent = vocabList.length;
-
-    vocabList.forEach((item, index) => {
-      const li = document.createElement('li');
-      li.className = 'vocab-item';
-      li.innerHTML = `
-        <span><strong>${item.front}</strong> – ${item.back}</span>
-        <button class="btn-delete" onclick="deleteVocab(${index})">Löschen</button>
-      `;
-      listEl.appendChild(li);
+  function add() {
+    let f = document.getElementById('f'), b = document.getElementById('b');
+    if (!f.value.trim() || !b.value.trim()) return alert('Bitte beide Felder ausfüllen!');
+    v.push({ f: f.value.trim(), b: b.value.trim() });
+    f.value = ''; b.value = ''; save();
+  }
+  function imp() {
+    let t = document.getElementById('bulk'), c = 0;
+    t.value.split('\n').forEach(l => {
+      let m = l.trim().match(/^(.+?)\s*(?:[-–=;:\t])\s*(.+)$/);
+      if (m) { v.push({ f: m[1].trim(), b: m[2].trim() }); c++; }
     });
+    if (c) { t.value = ''; save(); alert(c + ' Vokabeln importiert!'); }
+    else alert('Format: Wort - Übersetzung (je eine Zeile)');
   }
-
-  function addVocab() {
-    const frontInput = document.getElementById('word-front');
-    const backInput = document.getElementById('word-back');
-    const front = frontInput.value.trim();
-    const back = backInput.value.trim();
-
-    if (front === '' || back === '') {
-      alert('Bitte fülle beide Felder aus!');
-      return;
+  const del = i => { v.splice(i, 1); save(); };
+  const clr = () => { if (v.length && confirm('Wirklich alle löschen?')) { v = []; save(); } };
+  function start() {
+    if (!v.length) return alert('Bitte erst Vokabeln eintragen!');
+    q = [...v].sort(() => Math.random() - 0.5); sc = 0;
+    document.getElementById('setup').style.display = 'none';
+    document.getElementById('quiz').style.display = 'block';
+    nxt();
+  }
+  function nxt() {
+    let fb = document.getElementById('fb'), ans = document.getElementById('ans');
+    fb.textContent = ''; fb.className = 'fb'; ans.value = ''; ans.disabled = false;
+    document.getElementById('chk').style.display = 'block';
+    document.getElementById('nxt').style.display = 'none';
+    if (!q.length) {
+      document.getElementById('qw').textContent = '🎉 Fertig!';
+      fb.textContent = `${sc} von ${v.length} richtig!`; fb.classList.add('ok');
+      ans.style.display = 'none'; document.getElementById('chk').style.display = 'none';
+      document.getElementById('rem').textContent = '0'; return;
     }
-
-    vocabList.push({ front: front, back: back });
-    saveToStorage();
-    renderList();
-
-    frontInput.value = '';
-    backInput.value = '';
-    frontInput.focus();
+    ans.style.display = 'block'; cur = q.pop();
+    document.getElementById('qw').textContent = cur.f;
+    document.getElementById('sc').textContent = sc;
+    document.getElementById('rem').textContent = q.length + 1;
+    ans.focus();
   }
-
-  function deleteVocab(index) {
-    vocabList.splice(index, 1);
-    saveToStorage();
-    renderList();
-  }
-
-  function startQuiz() {
-    if (vocabList.length === 0) {
-      alert('Bitte füge zuerst mindestens eine Vokabel hinzu!');
-      return;
-    }
-
-    quizQueue = [...vocabList].sort(() => Math.random() - 0.5);
-    score = 0;
-
-    document.getElementById('setup-section').style.display = 'none';
-    document.getElementById('quiz-section').style.display = 'block';
-    nextQuestion();
-  }
-
-  function nextQuestion() {
-    const feedbackEl = document.getElementById('feedback');
-    const answerInput = document.getElementById('answer-input');
-    const checkBtn = document.getElementById('check-btn');
-    const nextBtn = document.getElementById('next-btn');
-
-    feedbackEl.textContent = '';
-    feedbackEl.className = 'feedback';
-    answerInput.value = '';
-    answerInput.disabled = false;
-    checkBtn.style.display = 'block';
-    nextBtn.style.display = 'none';
-
-    if (quizQueue.length === 0) {
-      document.getElementById('question-word').textContent = '🎉 Fertig!';
-      feedbackEl.textContent = `Du hast ${score} von ${vocabList.length} Vokabeln richtig gewusst!`;
-      feedbackEl.classList.add('correct');
-      answerInput.style.display = 'none';
-      checkBtn.style.display = 'none';
-      document.getElementById('remaining').textContent = '0';
-      return;
-    }
-
-    answerInput.style.display = 'block';
-    currentWord = quizQueue.pop();
-    document.getElementById('question-word').textContent = currentWord.front;
-    document.getElementById('score').textContent = score;
-    document.getElementById('remaining').textContent = quizQueue.length + 1;
-    answerInput.focus();
-  }
-
-  function checkAnswer() {
-    const answerInput = document.getElementById('answer-input');
-    const userAnswer = answerInput.value.trim().toLowerCase();
-    const correctAnswer = currentWord.back.trim().toLowerCase();
-    const feedbackEl = document.getElementById('feedback');
-
-    if (userAnswer === '') return;
-
-    answerInput.disabled = true;
-    document.getElementById('check-btn').style.display = 'none';
-    document.getElementById('next-btn').style.display = 'block';
-
-    if (userAnswer === correctAnswer) {
-      score++;
-      document.getElementById('score').textContent = score;
-      feedbackEl.textContent = '✅ Richtig!';
-      feedbackEl.classList.add('correct');
+  function chk() {
+    let ans = document.getElementById('ans'), fb = document.getElementById('fb');
+    if (!ans.value.trim()) return;
+    ans.disabled = true;
+    document.getElementById('chk').style.display = 'none';
+    document.getElementById('nxt').style.display = 'block';
+    if (ans.value.trim().toLowerCase() === cur.b.trim().toLowerCase()) {
+      sc++; document.getElementById('sc').textContent = sc;
+      fb.textContent = '✅ Richtig!'; fb.classList.add('ok');
     } else {
-      feedbackEl.textContent = `❌ Falsch! Richtig wäre: ${currentWord.back}`;
-      feedbackEl.classList.add('wrong');
+      fb.textContent = '❌ Falsch! Richtig: ' + cur.b; fb.classList.add('no');
     }
   }
-
-  function stopQuiz() {
-    document.getElementById('quiz-section').style.display = 'none';
-    document.getElementById('setup-section').style.display = 'block';
-    document.getElementById('answer-input').style.display = 'block';
-  }
-
-  document.getElementById('answer-input').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-      if (document.getElementById('check-btn').style.display !== 'none') {
-        checkAnswer();
-      } else if (document.getElementById('next-btn').style.display !== 'none') {
-        nextQuestion();
-      }
-    }
-  });
-
-  renderList();
+  const stop = () => { document.getElementById('quiz').style.display = 'none'; document.getElementById('setup').style.display = 'block'; };
+  render();
 </script>
-
 </body>
 </html>
